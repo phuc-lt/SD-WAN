@@ -1,0 +1,234 @@
+{
+	"info": {
+		"_postman_id": "461ba22d-2afc-413b-bed5-31338f2e288b",
+		"name": "SD-WAN",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19976144",
+		"_collection_link": "https://blue-shuttle-12789.postman.co/workspace/DEVNET~db195a76-e612-43b0-a2c0-7526766d2c1f/collection/19976144-461ba22d-2afc-413b-bed5-31338f2e288b?action=share&creator=19976144&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Get device",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{vmanage}}/dataservice/device",
+					"host": [
+						"{{vmanage}}"
+					],
+					"path": [
+						"dataservice",
+						"device"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get device Monitor",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{vmanage}}/dataservice/device/monitor",
+					"host": [
+						"{{vmanage}}"
+					],
+					"path": [
+						"dataservice",
+						"device",
+						"monitor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get device counters",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{vmanage}}/dataservice/device/counters",
+					"host": [
+						"{{vmanage}}"
+					],
+					"path": [
+						"dataservice",
+						"device",
+						"counters"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get interface statistics",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{Token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{vmanage}}/dataservice/statistics/interface",
+					"host": [
+						"{{vmanage}}"
+					],
+					"path": [
+						"dataservice",
+						"statistics",
+						"interface"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Authentication",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"postman.setEnvironmentVariable(\"jsessionid\",pm.cookies)\r",
+							" \r",
+							"pm.test(\"Status code is 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "j_username",
+							"value": "{{username}}",
+							"type": "text"
+						},
+						{
+							"key": "j_password",
+							"value": "{{password}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{vmanage}}/j_security_check",
+					"host": [
+						"{{vmanage}}"
+					],
+					"path": [
+						"j_security_check"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get device",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					},
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{Token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{vmanage}}/dataservice/device",
+					"host": [
+						"{{vmanage}}"
+					],
+					"path": [
+						"dataservice",
+						"device"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get token",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					},
+					{
+						"key": "Cookie",
+						"value": "JSESSIONID={{jsessionid}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{vmanage}}/dataservice/client/token",
+					"host": [
+						"{{vmanage}}"
+					],
+					"path": [
+						"dataservice",
+						"client",
+						"token"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "variable_key",
+			"value": ""
+		}
+	]
+}
