@@ -1,0 +1,104 @@
+openssl genrsa -out ROOTCA.key 2048
+
+openssl req -x509 -new -nodes -key ROOTCA.key -sha256 -days 3650 -out ROOTCA.pem
+
+openssl x509 -req -in vmanage_csr -CA ROOTCA.pem -CAkey ROOTCA.key -CAcreateserial -out vmanage.crt -days 3650 -sha256 
+
+openssl x509 -req -in vmanage2_csr -CA ROOTCA.pem -CAkey ROOTCA.key -CAcreateserial -out vmanage2.crt -days 3650 -sha256 
+
+openssl x509 -req -in vmanage3_csr -CA ROOTCA.pem -CAkey ROOTCA.key -CAcreateserial -out vmanage3.crt -days 3650 -sha256 
+ 
+openssl x509 -req -in vbond_csr -CA ROOTCA.pem -CAkey ROOTCA.key -CAcreateserial -out vbond.crt -days 730 -sha256
+
+openssl x509 -req -in vbond2_csr -CA ROOTCA.pem -CAkey ROOTCA.key -CAcreateserial -out vbond2.crt -days 730 -sha256
+
+openssl x509 -req -in vbond3_csr -CA ROOTCA.pem -CAkey ROOTCA.key -CAcreateserial -out vbond3.crt -days 730 -sha256
+
+openssl x509 -req -in vbond4_csr -CA ROOTCA.pem -CAkey ROOTCA.key -CAcreateserial -out vbond4.crt -days 730 -sha256
+
+openssl x509 -req -in vsmart_csr -CA ROOTCA.pem -CAkey ROOTCA.key -CAcreateserial -out vsmart.crt -days 730 -sha256
+
+openssl x509 -req -in vsmart2_csr -CA ROOTCA.pem -CAkey ROOTCA.key -CAcreateserial -out vsmart2.crt -days 730 -sha256
+
+openssl x509 -req -in vsmart3_csr -CA ROOTCA.pem -CAkey ROOTCA.key -CAcreateserial -out vsmart3.crt -days 730 -sha256
+
+openssl x509 -req -in vsmart4_csr -CA ROOTCA.pem -CAkey ROOTCA.key -CAcreateserial -out vsmart4.crt -days 730 -sha256
+
+request root-cert-chain install /home/admin/ROOTCA.pem
+
+request vedge-cloud activate chassis-number 
+
+puts [open "flash:ROOTCA.pem" w+] {
+
+}
+
+controller-mode enable
+
+request platform software sdwan root-cert-chain install bootflash:ROOTCA.pem
+
+request platform software sdwan vedge_cloud activate chassis-number ISR-0B4C9F74-3ECA-E25C-D1B2-FECC8696242D token aea7a5c6c7614b39b9e34f75de3ca117
+
+
+84c6527e-45e6-c5a8-c33c-fff9d8ad42a4
+88abf090d2ef45a8afb5e7078b5b19c2
+
+0b0f3c75-47c5-5e73-a557-9cf97c754274
+9c343019a67f4c3faf986a38e1fe25e2
+
+80060207-b2bd-a5fa-691f-72386930a34e
+e61129d2f6524eafb9674b3e3c6a479f
+
+f121e275-5c29-cbce-71c1-783ee2126db4
+58b39661fbf4469893c2dcdbd8cf7c85
+
+ecf8966f-55f0-b701-b9df-717fe3ca0fd0
+847b1b1905b1402ab8bbdfe33905d0c8
+
+5316bef9-7742-d0c9-1048-df6288bb4e56
+740a9b229d5642bfa4cc2fc73551e559
+
+be5ba729-6684-943c-1e91-7d6ff296e97b
+75020a7a9ebd414a9f6b190064ed5f7b
+
+57569bb0-0758-89a6-37e7-1f8e62ced210
+5f4f7d2402f84aa9903dc5869d1dfe99
+
+168a2add-2c4f-fcb1-6139-1d99df86e22e
+fc0d1da65cb0432cb99ed6ef5c329952
+
+a95df91b-578a-e6a2-8da8-589f11f0b758
+86f12958a15a445eb80c787b4de02b9c
+
+
+
+---
+
+84c6527e-45e6-c5a8-c33c-fff9d8ad42a4
+714b349b63e148d0a55f3b5956acb8cd
+
+0b0f3c75-47c5-5e73-a557-9cf97c754274
+59f1bf67f7c84bd189ca08ff304551e9
+
+80060207-b2bd-a5fa-691f-72386930a34e
+85630f7e587744eda08fe9f282e05f8b
+
+f121e275-5c29-cbce-71c1-783ee2126db4
+f984864d18dc4f18bae6ce1b664928c5
+
+ecf8966f-55f0-b701-b9df-717fe3ca0fd0
+d3cce71655054ce4a4d8ab8619b69f36
+
+5316bef9-7742-d0c9-1048-df6288bb4e56
+09b46e2a37e342099b884d3cc82e0fdc
+
+be5ba729-6684-943c-1e91-7d6ff296e97b
+eff098b3511c40a694ec3298b03300a1
+
+57569bb0-0758-89a6-37e7-1f8e62ced210
+181dd5d542d743a490d2b52c57e07fe1
+
+168a2add-2c4f-fcb1-6139-1d99df86e22e
+4d7946ac63864126ab50dbe996145874
+
+a95df91b-578a-e6a2-8da8-589f11f0b758
+daa3d927aea545568062b08ec7015fe8
