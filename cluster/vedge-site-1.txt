@@ -1,0 +1,54 @@
+system
+ host-name               vEdge-Site-1
+ system-ip               1.1.1.1
+ site-id                 1
+ organization-name       VnPro
+ vbond vbond.phuc-lt.vnpro.org
+ !
+!
+vpn 0
+ host vbond.phuc-lt.vnpro.org ip 10.1.2.1 10.1.2.2 10.1.2.3
+ interface ge0/0
+  ip address 200.200.1.2/30
+  tunnel-interface
+   encapsulation ipsec
+   color biz-internet
+   allow-service all
+  !
+  no shutdown
+ !
+ interface ge0/1
+  ip address 172.16.1.10/24
+  tunnel-interface
+   encapsulation ipsec
+   color mpls
+   allow-service all
+  !
+  no shutdown
+ !
+ ip route 0.0.0.0/0 172.16.1.254
+ ip route 0.0.0.0/0 200.200.1.1
+!
+vpn 10
+ router
+  ospf
+   router-id 1.1.1.1
+   timers spf 200 1000 10000
+   redistribute omp
+   area 0
+    interface ge0/3
+    exit
+   exit
+  !
+ !
+ interface ge0/3
+  ip address 192.168.10.1/24
+  no shutdown
+ !
+!
+vpn 512
+ interface eth0
+  ip dhcp-client
+  no shutdown
+ !
+!

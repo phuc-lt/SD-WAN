@@ -1,0 +1,30 @@
+system
+ host-name             vManage-2
+ system-ip             100.1.1.2
+ site-id               100
+ organization-name     VnPro
+ vbond vbond.phuc-lt.vnpro.org
+ !
+!
+vpn 0
+ host vbond.phuc-lt.vnpro.org ip 10.1.2.1 10.1.2.2 10.1.2.3
+ interface eth0
+  ip address 10.1.1.2/24
+  tunnel-interface
+   allow-service all
+  !
+  no shutdown
+ !
+ interface eth2
+  ip address 20.1.1.2/24
+  no shutdown
+ !
+ ip route 0.0.0.0/0 10.1.1.254
+ ip route 20.1.1.0/24 20.1.1.254
+!
+vpn 512
+ interface eth1
+  ip address 192.168.1.2/24
+  no shutdown
+ !
+!
