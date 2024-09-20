@@ -1,0 +1,45 @@
+openssl genrsa -out ROOTCA.key 2048
+
+openssl req -x509 -new -nodes -key ROOTCA.key -sha256 -days 3650 -out ROOTCA.pem
+
+openssl x509 -req -in vmanage_csr -CA ROOTCA.pem -CAkey ROOTCA.key -CAcreateserial -out vmanage.crt -days 3650 -sha256 
+
+openssl x509 -req -in vmanage2_csr -CA ROOTCA.pem -CAkey ROOTCA.key -CAcreateserial -out vmanage2.crt -days 3650 -sha256 
+
+openssl x509 -req -in vmanage3_csr -CA ROOTCA.pem -CAkey ROOTCA.key -CAcreateserial -out vmanage3.crt -days 3650 -sha256 
+
+scp admin@10.1.1.2:/home/admin/vbond_csr /home/admin/
+ 
+openssl x509 -req -in vbond_csr -CA ROOTCA.pem -CAkey ROOTCA.key -CAcreateserial -out vbond.crt -days 730 -sha256
+
+openssl x509 -req -in vbond2_csr -CA ROOTCA.pem -CAkey ROOTCA.key -CAcreateserial -out vbond2.crt -days 730 -sha256
+
+openssl x509 -req -in vbond3_csr -CA ROOTCA.pem -CAkey ROOTCA.key -CAcreateserial -out vbond3.crt -days 730 -sha256
+
+scp admin@10.1.1.3:/home/admin/vsmart_csr /home/admin/
+
+openssl x509 -req -in vsmart_csr -CA ROOTCA.pem -CAkey ROOTCA.key -CAcreateserial -out vsmart.crt -days 730 -sha256
+
+openssl x509 -req -in vsmart2_csr -CA ROOTCA.pem -CAkey ROOTCA.key -CAcreateserial -out vsmart2.crt -days 730 -sha256
+
+openssl x509 -req -in vsmart3_csr -CA ROOTCA.pem -CAkey ROOTCA.key -CAcreateserial -out vsmart3.crt -days 730 -sha256
+
+scp ROOTCA.pem admin@200.200.1.2:/home/admin/
+
+request root-cert-chain install /home/admin/ROOTCA.pem
+
+request vedge-cloud activate chassis-number 
+
+scp ROOTCA.pem admin@200.100.1.2:bootflash:/ROOTCA.pem
+
+puts [open "flash:ROOTCA.pem" w+] {
+
+}
+
+controller-mode enable
+
+request platform software sdwan root-cert-chain install bootflash:ROOTCA.pem
+
+request platform software sdwan vedge_cloud activate chassis-number CSR-38FAFFE1-66CF-74C5-EB2A-C6CBC5A4728A token 47b169a4bcdc4e519e4cce7afacf3082
+
+
